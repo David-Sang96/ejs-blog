@@ -1,0 +1,30 @@
+<%- include("./includes/head.ejs") %>
+<h1>Home Page</h1>
+<p>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione vitae
+  veritatis ad magnam cupiditate odit tenetur corporis! Reprehenderit asperiores
+  sapiente officia quo, dolore molestias quisquam nostrum magnam eaque ab.
+  Consequatur obcaecati harum repellat pariatur facere ex reprehenderit in
+  laboriosam praesentium.
+</p>
+
+<div class="btn">
+  <a href="/admin/create-post">add new post</a>
+</div>
+<hr />
+<h1>Posts</h1>
+<% if(posts.length === 0 ){ %>
+<div>
+  <div class="post-title">No posts</div>
+  <div>Create new post</div>
+  <div class="btn">
+    <a href="/admin/create-post">Create new post</a>
+  </div>
+</div>
+<% } %> <% for(const post of posts ){ %>
+<div class="post-box">
+  <div class="post-title"><%= post.title %></div>
+
+  <a href="/post/<%= post.id  %>">See More...</a>
+</div>
+<% } %> <%- include("./includes/foot.ejs") %>

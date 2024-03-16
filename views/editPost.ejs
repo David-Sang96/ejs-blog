@@ -1,0 +1,44 @@
+<%- include("./includes/head.ejs") %>
+<h1 class="title">Edit your post here</h1>
+<div class="btn">
+  <a href="/">back to home</a>
+</div>
+<form action="/admin/update/<%= post.id %>" method="post" class="form">
+  <div>
+    <label for="title">Title</label>
+    <input
+      type="text"
+      id="title"
+      name="title"
+      value="<%= post.title  %>"
+      required
+    />
+  </div>
+  <div>
+    <label for="title">Image</label>
+    <input
+      type="text"
+      id="title"
+      name="image"
+      value="<%= post.image  %>"
+      required
+    />
+  </div>
+  <div class="">
+    <label for="description">Description</label>
+    <textarea
+      cols="30"
+      rows="5"
+      id="description"
+      name="description"
+      value="<%= post.description  %>"
+    >
+<%= post.description %></textarea
+    >
+  </div>
+  <div class="createBtn">
+    <button>Edit Post</button>
+  </div>
+</form>
+
+<%- include("./includes/foot.ejs") %>

@@ -1,0 +1,22 @@
+<%- include("./includes/head.ejs") %>
+<section>
+  <h1>Post Details</h1>
+  <div class="btn">
+    <a href="/">back to home</a>
+  </div>
+  <div class="detail-box">
+    <div class="detail-titleBar">
+      <p class="post-title"><%= post.title %></p>
+      <div class="detail-actionBar">
+        <a href="/admin/edit-post/<%= post.id %>">edit</a>
+        <form action="/admin/delete/<%= post.id %>" method="post">
+          <button class="deleteBtn">delete</button>
+        </form>
+      </div>
+    </div>
+    <img src="<%= post.image  %>" alt="<%= post.title %>" />
+    <p class="post-des"><%= post.description %></p>
+  </div>
+</section>
+
+<%- include("./includes/foot.ejs") %>
