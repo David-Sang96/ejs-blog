@@ -13,18 +13,22 @@
 </div>
 <hr />
 <h1>Posts</h1>
-<% if(posts.length === 0 ){ %>
-<div>
-  <div class="post-title">No posts</div>
-  <div>Create new post</div>
-  <div class="btn">
-    <a href="/admin/create-post">Create new post</a>
+<div class="mainBox">
+  <% if(posts.length === 0 ){ %>
+  <div>
+    <div class="post-title">No posts</div>
+    <div>Create new post</div>
+    <div class="btn">
+      <a href="/admin/create-post">Create new post</a>
+    </div>
   </div>
-</div>
-<% } %> <% for(const post of posts ){ %>
-<div class="post-box">
-  <div class="post-title"><%= post.title %></div>
+  <% } %> <% for(const post of posts ){ %>
+  <div class="post-box">
+    <div class="post-title"><%= post.title %></div>
 
-  <a href="/post/<%= post.id  %>">See More...</a>
+    <a href="/post/<%= post.id  %>">See More...</a>
+  </div>
+  <p>Posted by <%=post.userId.userName %></p>
 </div>
+
 <% } %> <%- include("./includes/foot.ejs") %>

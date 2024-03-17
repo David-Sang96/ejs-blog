@@ -68,12 +68,14 @@ a {
   padding: 5px 10px;
   border-radius: 10px;
 }
-
-.post-box {
+.mainBox {
   border: 1px solid black;
   padding: 30px 10px;
-  margin-bottom: 20px;
   border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.post-box {
   display: flex;
   justify-content: space-between;
   align-items: center;

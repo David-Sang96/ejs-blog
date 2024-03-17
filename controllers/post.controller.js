@@ -1,7 +1,5 @@
 const Post = require("../models/post");
 
-const posts = [];
-
 exports.renderCreatePostPage = (req, res) => {
   res.render("addPost", { title: "Create" });
 };
@@ -9,7 +7,7 @@ exports.renderCreatePostPage = (req, res) => {
 exports.createPost = async (req, res) => {
   try {
     const { title, description, image } = req.body;
-    await Post.create({ title, description, image });
+    await Post.create({ title, description, image, userId: req.user });
     res.redirect("/");
   } catch (error) {
     console.log(error);
@@ -18,7 +16,10 @@ exports.createPost = async (req, res) => {
 
 exports.getPosts = async (req, res) => {
   try {
-    const posts = await Post.find().sort({ createdAt: -1 });
+    const posts = await Post.find()
+      .select("title")
+      .sort({ createdAt: -1 })
+      .populate("userId", "userName");
     res.render("home", { title: "Home", posts });
   } catch (error) {
     console.log(error);
