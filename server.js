@@ -8,8 +8,6 @@ require("dotenv").config();
 
 const app = express();
 
-const User = require("./models/user");
-
 const store = new mongoStore({
   uri: process.env.MONGODB_URI,
   collection: "sessions",
@@ -33,12 +31,6 @@ app.use(
   })
 );
 
-app.use(async (req, res, next) => {
-  const user = await User.findById("65f6605f484fc323607f933d");
-  req.user = user;
-  next();
-});
-
 app.use("/admin", adminRouter);
 app.use(authRouter);
 app.use(postRouter);
@@ -50,16 +42,5 @@ mongoose
     app.listen(4000, () => {
       console.log("server is listening at port 4000");
     });
-    return User.findOne().then((user) => {
-      if (!user) {
-        User.create({
-          userName: "David",
-          email: "david@gmail.com",
-          password: "davidsang",
-        });
-      }
-      return user;
-    });
   })
-  .then((result) => console.log(result))
   .catch((err) => console.log(err));

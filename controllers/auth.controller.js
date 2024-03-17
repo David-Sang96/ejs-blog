@@ -1,6 +1,34 @@
+const bcrypt = require("bcrypt");
+
 const User = require("../models/user");
 
-exports.renderLogInPage = (req, res) => {
+exports.renderRegisterPage = (req, res) => {
+  res.render("auth/register", {
+    title: "Register Page",
+    isLogin: req.session.isLogin ? true : false,
+  });
+};
+
+exports.userRegister = async (req, res) => {
+  try {
+    const { userName, email, password } = req.body;
+
+    const userDoc = await User.findOne({ email });
+    if (userDoc) return res.redirect("/register");
+
+    const hash = bcrypt.hashSync(password, 10);
+    await User.create({
+      userName,
+      email,
+      password: hash,
+    });
+    res.redirect("/login");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.renderLoginPage = (req, res) => {
   res.render("auth/login", {
     title: "Login Page",
     isLogin: req.session.isLogin ? true : false,
@@ -9,9 +37,20 @@ exports.renderLogInPage = (req, res) => {
 
 exports.userLogin = async (req, res) => {
   try {
-    const { userName, email, password } = req.body;
+    const { email, password } = req.body;
+
+    const userDoc = await User.findOne({ email });
+    if (!userDoc) return res.redirect("/login");
+
+    const isPassword = bcrypt.compareSync(password, userDoc.password);
+    if (!isPassword) return res.redirect("/login");
+
     req.session.isLogin = true;
-    res.redirect("/");
+    req.session.userInfo = userDoc;
+    req.session.save((err) => {
+      res.redirect("/");
+      console.log(err);
+    });
   } catch (error) {
     console.log(error);
   }

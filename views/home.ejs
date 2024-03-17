@@ -13,15 +13,12 @@
   <a href="/admin/create-post">add new post</a>
   <% } %>
 </div>
-<hr />
+
 <h1>Posts</h1>
 <% if(posts.length === 0 ){ %>
 <div>
   <div class="post-title">No posts</div>
   <div>Create new post</div>
-  <div class="btn">
-    <a href="/admin/create-post">Create new post</a>
-  </div>
 </div>
 <% } %> <% for(const post of posts ){ %>
 <div class="card">
