@@ -1,30 +1,47 @@
 const express = require("express");
-const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const session = require("express-session");
+const mongoStore = require("connect-mongodb-session")(session);
 require("dotenv").config();
+
+const app = express();
+
+const User = require("./models/user");
+
+const store = new mongoStore({
+  uri: process.env.MONGODB_URI,
+  collection: "sessions",
+});
 
 const postRouter = require("./routes/post.route");
 const adminRouter = require("./routes/admin.route");
 const authRouter = require("./routes/auth.route");
-
-const User = require("./models/user");
 
 app.set("view engine", "ejs");
 app.set("views", "views");
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  session({
+    secret: process.env.SESSION_KEY,
+    resave: false,
+    saveUninitialized: false,
+    store,
+  })
+);
 
 app.use(async (req, res, next) => {
   const user = await User.findById("65f6605f484fc323607f933d");
   req.user = user;
   next();
 });
+
+app.use("/admin", adminRouter);
 app.use(authRouter);
 app.use(postRouter);
-app.use("/admin", adminRouter);
 
 mongoose
   .connect(process.env.DATABASE_URL)

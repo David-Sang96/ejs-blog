@@ -1,7 +1,10 @@
 const Post = require("../models/post");
 
 exports.renderCreatePostPage = (req, res) => {
-  res.render("addPost", { title: "Create" });
+  res.render("addPost", {
+    title: "Create",
+    isLogin: req.session.isLogin ? true : false,
+  });
 };
 
 exports.createPost = async (req, res) => {
@@ -16,13 +19,15 @@ exports.createPost = async (req, res) => {
 
 exports.getPosts = async (req, res) => {
   try {
-    const cookieValue = req.get("Cookie");
-    const cookie = Boolean(cookieValue && cookieValue.slice(8)?.trim());
     const posts = await Post.find()
       .select("title")
       .sort({ createdAt: -1 })
       .populate("userId", "userName");
-    res.render("home", { title: "Home", posts, cookie });
+    res.render("home", {
+      title: "Home",
+      posts,
+      isLogin: req.session.isLogin ? true : false,
+    });
   } catch (error) {
     console.log(error);
   }
@@ -32,7 +37,11 @@ exports.postDetails = async (req, res) => {
   try {
     const { id } = req.params;
     const post = await Post.findById(id);
-    res.render("details", { title: "Details", post });
+    res.render("details", {
+      title: "Details",
+      post,
+      isLogin: req.session.isLogin ? true : false,
+    });
   } catch (error) {
     console.log(error);
   }
@@ -42,7 +51,11 @@ exports.renderEditPage = async (req, res) => {
   try {
     const { id } = req.params;
     const post = await Post.findById(id);
-    res.render("editPost", { title: "Edit Page", post });
+    res.render("editPost", {
+      title: "Edit Page",
+      post,
+      isLogin: req.session.isLogin ? true : false,
+    });
   } catch (error) {
     console.log(error);
   }

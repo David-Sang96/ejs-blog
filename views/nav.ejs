@@ -4,10 +4,14 @@
     <a href="/"> Blog </a>
   </div>
   <div class="items">
-    <% if (cookie ) { %>
-    <a href="*">log Out</a>
+    <% if (isLogin ) { %>
+    <form action="/logout" method="post">
+      <button class="deleteBtn">Log Out</button>
+    </form>
     <% } else {%>
-    <a href="/login">Create Account</a>
+    <button class="deleteBtn">
+      <a href="/login">Create Account</a>
+    </button>
     <% } %>
   </div>
 </nav>

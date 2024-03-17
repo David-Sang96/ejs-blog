@@ -1,4 +1,4 @@
-<%- include("./includes/head.ejs") %>
+<%- include("./includes/head.ejs") %> <%- include("./nav.ejs") %>
 <h1>Home Page</h1>
 <p>
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione vitae
@@ -9,10 +9,8 @@
 </p>
 
 <div class="btn">
-  <% if(cookie) {%>
+  <% if(isLogin) {%>
   <a href="/admin/create-post">add new post</a>
-  <% }else { %>
-  <a href="/login">Create Account</a>
   <% } %>
 </div>
 <hr />

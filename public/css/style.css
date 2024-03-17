@@ -27,18 +27,6 @@ nav .home a {
   font-size: 30px;
   font-weight: bold;
 }
-nav .items a {
-  background-color: bisque;
-  color: black;
-  border-radius: none;
-  padding: 0;
-  padding-right: 10px;
-  font-size: 20px;
-}
-nav .items a:hover {
-  color: crimson;
-  font-weight: bold;
-}
 
 h1 {
   text-align: center;
