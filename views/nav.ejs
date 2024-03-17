@@ -1,0 +1,15 @@
+<%-include("./includes/head.ejs") %>
+<nav>
+  <div class="home">
+    <a href="/"> Blog </a>
+  </div>
+  <div class="items">
+    <% if (cookie ) { %>
+    <a href="*">log Out</a>
+    <% } else {%>
+    <a href="/login">Create Account</a>
+    <% } %>
+  </div>
+</nav>
+
+<%-include("./includes/foot.ejs") %>

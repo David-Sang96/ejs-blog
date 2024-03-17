@@ -7,6 +7,7 @@ require("dotenv").config();
 
 const postRouter = require("./routes/post.route");
 const adminRouter = require("./routes/admin.route");
+const authRouter = require("./routes/auth.route");
 
 const User = require("./models/user");
 
@@ -21,7 +22,7 @@ app.use(async (req, res, next) => {
   req.user = user;
   next();
 });
-
+app.use(authRouter);
 app.use(postRouter);
 app.use("/admin", adminRouter);
 

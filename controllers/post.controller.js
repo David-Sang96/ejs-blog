@@ -16,11 +16,13 @@ exports.createPost = async (req, res) => {
 
 exports.getPosts = async (req, res) => {
   try {
+    const cookieValue = req.get("Cookie");
+    const cookie = Boolean(cookieValue && cookieValue.slice(8)?.trim());
     const posts = await Post.find()
       .select("title")
       .sort({ createdAt: -1 })
       .populate("userId", "userName");
-    res.render("home", { title: "Home", posts });
+    res.render("home", { title: "Home", posts, cookie });
   } catch (error) {
     console.log(error);
   }

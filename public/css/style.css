@@ -7,11 +7,43 @@
 body {
   width: 1200px;
   margin: auto;
+  background-color: beige;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: bisque;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
+nav .home a {
+  background-color: bisque;
+  color: black;
+  border-radius: none;
+  padding: 0;
+  font-size: 30px;
+  font-weight: bold;
+}
+nav .items a {
+  background-color: bisque;
+  color: black;
+  border-radius: none;
+  padding: 0;
+  padding-right: 10px;
+  font-size: 20px;
+}
+nav .items a:hover {
+  color: crimson;
+  font-weight: bold;
 }
 
 h1 {
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 2rem;
+  padding-block: 10px;
 }
 
 .form {
@@ -19,6 +51,10 @@ h1 {
   display: flex;
   flex-direction: column;
   margin: auto;
+  background-color: bisque;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 10px;
 }
 .form label {
   font-size: 18px;
@@ -29,6 +65,7 @@ h1 {
   margin-block: 10px;
   padding: 5px;
   font-size: 16px;
+  background-color: beige;
 }
 
 .form .createBtn {
@@ -50,6 +87,7 @@ h1 {
   display: flex;
   justify-content: end;
   align-items: end;
+  margin-block: 15px;
 }
 .btn a {
   text-decoration: none;
@@ -68,13 +106,13 @@ a {
   padding: 5px 10px;
   border-radius: 10px;
 }
-.mainBox {
-  border: 1px solid black;
-  padding: 30px 10px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
 
+.card {
+  margin-bottom: 10px;
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 10px;
+}
 .post-box {
   display: flex;
   justify-content: space-between;
@@ -83,7 +121,7 @@ a {
 .post-title {
   font-size: 25px;
   font-weight: bold;
-  padding-block: 30px;
+  padding-block: 10px;
   text-transform: uppercase;
 }
 

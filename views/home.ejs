@@ -9,26 +9,28 @@
 </p>
 
 <div class="btn">
+  <% if(cookie) {%>
   <a href="/admin/create-post">add new post</a>
+  <% }else { %>
+  <a href="/login">Create Account</a>
+  <% } %>
 </div>
 <hr />
 <h1>Posts</h1>
-<div class="mainBox">
-  <% if(posts.length === 0 ){ %>
-  <div>
-    <div class="post-title">No posts</div>
-    <div>Create new post</div>
-    <div class="btn">
-      <a href="/admin/create-post">Create new post</a>
-    </div>
+<% if(posts.length === 0 ){ %>
+<div>
+  <div class="post-title">No posts</div>
+  <div>Create new post</div>
+  <div class="btn">
+    <a href="/admin/create-post">Create new post</a>
   </div>
-  <% } %> <% for(const post of posts ){ %>
+</div>
+<% } %> <% for(const post of posts ){ %>
+<div class="card">
   <div class="post-box">
     <div class="post-title"><%= post.title %></div>
-
     <a href="/post/<%= post.id  %>">See More...</a>
   </div>
   <p>Posted by <%=post.userId.userName %></p>
 </div>
-
 <% } %> <%- include("./includes/foot.ejs") %>

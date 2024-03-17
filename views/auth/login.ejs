@@ -1,0 +1,19 @@
+<%- include("../includes/head.ejs") %>
+<form action="/login" method="post" class="form">
+  <div>
+    <label for="userName">Name</label>
+    <input type="text" id="userName" name="userName" />
+  </div>
+  <div>
+    <label for="email">E-mail</label>
+    <input type="email" id="email" name="email" />
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" />
+  </div>
+  <div class="createBtn">
+    <button>Create Account</button>
+  </div>
+</form>
+<%- include("../includes/foot.ejs") %>
