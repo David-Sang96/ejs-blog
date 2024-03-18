@@ -5,7 +5,6 @@ const User = require("../models/user");
 exports.renderRegisterPage = (req, res) => {
   res.render("auth/register", {
     title: "Register Page",
-    isLogin: req.session.isLogin ? true : false,
   });
 };
 
@@ -31,7 +30,6 @@ exports.userRegister = async (req, res) => {
 exports.renderLoginPage = (req, res) => {
   res.render("auth/login", {
     title: "Login Page",
-    isLogin: req.session.isLogin ? true : false,
   });
 };
 

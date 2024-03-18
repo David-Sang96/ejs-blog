@@ -4,6 +4,7 @@
   <a href="/">back to home</a>
 </div>
 <form action="/admin/update/<%= post.id %>" method="post" class="form">
+  <input hidden value="<%= csrfToken %>" name="_csrf" />
   <div>
     <label for="title">Title</label>
     <input

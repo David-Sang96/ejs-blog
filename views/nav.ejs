@@ -6,6 +6,7 @@
   <div class="items">
     <% if (isLogin ) { %>
     <form action="/logout" method="post">
+      <input hidden value="<%= csrfToken %>" name="_csrf" />
       <button>Log Out</button>
     </form>
     <% } else {%>

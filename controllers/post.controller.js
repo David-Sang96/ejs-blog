@@ -3,7 +3,6 @@ const Post = require("../models/post");
 exports.renderCreatePostPage = (req, res) => {
   res.render("addPost", {
     title: "Create",
-    isLogin: req.session.isLogin ? true : false,
   });
 };
 
@@ -17,7 +16,7 @@ exports.createPost = async (req, res) => {
   }
 };
 
-exports.getPosts = async (req, res) => {
+exports.getPostsAndRenderHomePage = async (req, res) => {
   try {
     const posts = await Post.find()
       .select("title")
@@ -26,7 +25,6 @@ exports.getPosts = async (req, res) => {
     res.render("home", {
       title: "Home",
       posts,
-      isLogin: req.session.isLogin ? true : false,
     });
   } catch (error) {
     console.log(error);
@@ -40,7 +38,6 @@ exports.postDetails = async (req, res) => {
     res.render("details", {
       title: "Details",
       post,
-      isLogin: req.session.isLogin ? true : false,
     });
   } catch (error) {
     console.log(error);
@@ -54,7 +51,6 @@ exports.renderEditPage = async (req, res) => {
     res.render("editPost", {
       title: "Edit Page",
       post,
-      isLogin: req.session.isLogin ? true : false,
     });
   } catch (error) {
     console.log(error);
