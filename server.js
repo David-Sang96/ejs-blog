@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const mongoStore = require("connect-mongodb-session")(session);
 const csrf = require("csurf");
+const flash = require("connect-flash");
 require("dotenv").config();
 
 const app = express();
@@ -24,7 +25,6 @@ const store = new mongoStore({
   uri: process.env.MONGODB_URI,
   collection: "sessions",
 });
-
 const csrfProtect = csrf();
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -38,6 +38,7 @@ app.use(
   })
 );
 app.use(csrfProtect);
+app.use(flash());
 
 //send csrf token for every pages render
 app.use((req, res, next) => {

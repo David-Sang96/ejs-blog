@@ -8,6 +8,7 @@ body {
   width: 1300px;
   margin: auto;
   background-color: beige;
+  user-select: none;
 }
 
 nav {
@@ -139,4 +140,18 @@ button {
 .auth {
   display: flex;
   gap: 6px;
+}
+
+.errorMsg {
+  padding-bottom: 10px;
+  font-weight: bold;
+  color: red;
+  font-size: 20px;
+}
+
+.warnMsg {
+  padding-bottom: 10px;
+  font-weight: bold;
+  color: green;
+  font-size: 20px;
 }

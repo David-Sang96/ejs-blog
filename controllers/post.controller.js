@@ -17,6 +17,8 @@ exports.createPost = async (req, res) => {
 };
 
 exports.getPostsAndRenderHomePage = async (req, res) => {
+  const flash = req.flash("success");
+  const message = flash.length > 0 ? flash[0] : null;
   try {
     const posts = await Post.find()
       .select("title")
@@ -25,6 +27,7 @@ exports.getPostsAndRenderHomePage = async (req, res) => {
     res.render("home", {
       title: "Home",
       posts,
+      successMsg: message,
     });
   } catch (error) {
     console.log(error);

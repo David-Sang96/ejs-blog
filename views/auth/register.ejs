@@ -1,6 +1,9 @@
 <%- include("../includes/head.ejs") %> <%- include("../nav.ejs") %>
 <h1 class="title">Register account here</h1>
 <form action="/register" method="post" class="form">
+  <% if(errorMessage) { %>
+  <p class="warnMsg"><%= errorMessage %></p>
+  <% } %>
   <input hidden value="<%= csrfToken %>" name="_csrf" />
   <div>
     <label for="userName">Name</label>
