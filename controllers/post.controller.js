@@ -17,17 +17,15 @@ exports.createPost = async (req, res) => {
 };
 
 exports.getPostsAndRenderHomePage = async (req, res) => {
-  const flash = req.flash("success");
-  const message = flash.length > 0 ? flash[0] : null;
   try {
     const posts = await Post.find()
-      .select("title")
+      .select("title description")
       .sort({ createdAt: -1 })
-      .populate("userId", "userName");
+      .populate("userId", "userName email");
     res.render("home", {
       title: "Home",
       posts,
-      successMsg: message,
+      currentUserEmail: req.session.userInfo?.email,
     });
   } catch (error) {
     console.log(error);
@@ -41,6 +39,7 @@ exports.postDetails = async (req, res) => {
     res.render("details", {
       title: "Details",
       post,
+      currentLoginUserId: req.session.userInfo?._id,
     });
   } catch (error) {
     console.log(error);
@@ -51,6 +50,9 @@ exports.renderEditPage = async (req, res) => {
   try {
     const { id } = req.params;
     const post = await Post.findById(id);
+    if (post.userId.toString() !== req.session.userInfo._id.toString()) {
+      return res.redirect("/");
+    }
     res.render("editPost", {
       title: "Edit Page",
       post,
@@ -65,6 +67,9 @@ exports.editPost = async (req, res) => {
     const { id } = req.params;
     const { title, description, image } = req.body;
     const post = await Post.findOne({ _id: id });
+    if (post.userId.toString() !== req.user._id.toString()) {
+      return res.redirect("/");
+    }
     (post.title = title), (post.description = description);
     post.image = image;
     post.save();
@@ -77,7 +82,11 @@ exports.editPost = async (req, res) => {
 exports.deletePost = async (req, res) => {
   try {
     const { id } = req.params;
-    await Post.deleteOne({ _id: id });
+    // const post = await Post.findById(id);
+    // if (post.userId.toString() !== req.user._id.toString()) {
+    //   return res.redirect("/");
+    // }
+    await Post.deleteOne({ _id: id, userId: req.user._id });
     res.redirect("/");
   } catch (error) {
     console.log(error);

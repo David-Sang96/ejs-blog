@@ -37,6 +37,11 @@ h1 {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
+.homeHero {
+  padding-bottom: 20px;
+  text-align: justify;
+  line-height: 1.2;
+}
 
 .form {
   width: 450px;
@@ -68,10 +73,15 @@ label {
 .form a {
   margin-block: 10px;
 }
+
+.cardBox {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
 .card {
-  margin-bottom: 10px;
   border: 1px solid black;
-  padding: 10px;
+  padding: 15px;
   border-radius: 10px;
 }
 .post-box {
@@ -79,15 +89,25 @@ label {
   justify-content: space-between;
   align-items: center;
 }
+.post-box a {
+  font-size: 14px;
+}
 .post-title {
-  font-size: 25px;
+  font-size: 19px;
   font-weight: bold;
   padding-block: 10px;
   text-transform: uppercase;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .post-des {
   text-align: justify;
+  padding-block: 10px;
+}
+
+.author {
+  font-size: 14px;
 }
 
 .detail-box {
@@ -102,6 +122,16 @@ label {
   object-fit: contain;
   height: 500px;
   margin-bottom: 10px;
+}
+
+.detail-title {
+  font-size: 25px;
+  font-weight: bold;
+  padding-bottom: 40px;
+  margin: auto;
+  text-transform: uppercase;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .detail-titleBar {
@@ -130,6 +160,7 @@ a {
   display: flex;
   justify-content: end;
   align-items: end;
+  margin-bottom: 10px;
 }
 
 button {

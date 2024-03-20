@@ -80,7 +80,6 @@ exports.userLogin = async (req, res) => {
     req.session.isLogin = true;
     req.session.userInfo = userDoc;
     req.session.save((err) => {
-      req.flash("success", "Logged In Successfully.");
       res.redirect("/");
       console.log(err);
     });
