@@ -39,7 +39,7 @@ h1 {
 }
 
 .form {
-  width: 400px;
+  width: 450px;
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -47,21 +47,27 @@ h1 {
   padding: 15px;
   border-radius: 10px;
 }
+.form div {
+  margin-block: 5px;
+}
 
-.form label {
-  font-size: 18px;
+label {
+  font-size: 20px;
 }
 
 .form input,
 .form textarea {
   width: 100%;
-  margin-block: 10px;
+  margin-top: 10px;
   padding: 5px;
   font-size: 16px;
   background-color: beige;
   border-radius: 6px;
 }
 
+.form a {
+  margin-block: 10px;
+}
 .card {
   margin-bottom: 10px;
   border: 1px solid black;
@@ -117,6 +123,7 @@ a {
   padding: 8px 13px;
   border-radius: 10px;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  width: fit-content;
 }
 
 .btn {
@@ -154,4 +161,24 @@ button {
   font-weight: bold;
   color: green;
   font-size: 20px;
+}
+.feedbackBox {
+  width: 600px;
+  margin: auto;
+  text-align: end;
+}
+
+.feedback {
+  padding-bottom: 17px;
+  font-size: 22px;
+  font-weight: bold;
+}
+.feedbacks {
+  font-size: 18px;
+  padding-bottom: 15px;
+}
+.links {
+  display: flex;
+  justify-content: end;
+  gap: 8px;
 }
