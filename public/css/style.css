@@ -236,3 +236,7 @@ button {
   justify-content: end;
   gap: 8px;
 }
+
+.fa-id-badge {
+  font-size: 30px;
+}

@@ -6,16 +6,21 @@
   <div class="items">
     <% if (isLogin ) { %>
     <div class="navBar">
-      <p>Logged In as - <%= currentUserEmail %></p>
+      <p>
+        Logged In as - <%= currentUserEmail %>
+        <i class="fa-regular fa-id-badge"></i>
+      </p>
       <form action="/logout" method="post">
         <input hidden value="<%= csrfToken %>" name="_csrf" />
-        <button>Log Out</button>
+        <button><i class="fa-solid fa-right-from-bracket"></i> Log Out</button>
       </form>
     </div>
     <% } else {%>
     <div class="auth">
-      <a href="/register">Register </a>
-      <a href="/login">Login </a>
+      <a href="/register"> <i class="fa-regular fa-user"></i> Register </a>
+      <a href="/login">
+        <i class="fa-solid fa-arrow-right-to-bracket"></i> Login
+      </a>
     </div>
     <% } %>
   </div>

@@ -16,6 +16,7 @@ app.set("views", "views");
 const postRouter = require("./routes/post.route");
 const adminRouter = require("./routes/admin.route");
 const authRouter = require("./routes/auth.route");
+const errorController = require("./controllers/error.controller");
 
 const User = require("./models/user");
 
@@ -61,6 +62,9 @@ app.use(async (req, res, next) => {
 app.use("/admin", isLoginMiddleware, adminRouter);
 app.use(authRouter);
 app.use(postRouter);
+
+app.all("*", errorController.render404Page);
+app.use(errorController.render500page);
 
 mongoose
   .connect(process.env.DATABASE_URL)

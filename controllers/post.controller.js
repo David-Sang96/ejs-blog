@@ -2,15 +2,21 @@ const Post = require("../models/post");
 const { validationResult } = require("express-validator");
 const { format, formatISO9075 } = require("date-fns");
 
-exports.renderCreatePostPage = (req, res) => {
-  res.render("addPost", {
-    errorMessage: "",
-    title: "Create",
-    oldFormData: { title: "", description: "", image: "" },
-  });
+exports.renderCreatePostPage = (req, res, next) => {
+  try {
+    res.render("addPost", {
+      errorMessage: "",
+      title: "Create",
+      oldFormData: { title: "", description: "", image: "" },
+    });
+  } catch (error) {
+    console.log(error);
+    const err = new Error("Something wrong.Report to admin.");
+    return next(err);
+  }
 };
 
-exports.createPost = async (req, res) => {
+exports.createPost = async (req, res, next) => {
   try {
     const { title, description, image } = req.body;
     const errors = validationResult(req);
@@ -25,10 +31,12 @@ exports.createPost = async (req, res) => {
     res.redirect("/");
   } catch (error) {
     console.log(error);
+    const err = new Error("Something wrong.Report to admin.");
+    return next(err);
   }
 };
 
-exports.getPostsAndRenderHomePage = async (req, res) => {
+exports.getPostsAndRenderHomePage = async (req, res, next) => {
   try {
     const posts = await Post.find()
       .select("title description createdAt")
@@ -47,10 +55,12 @@ exports.getPostsAndRenderHomePage = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    const err = new Error("Something wrong.Report to admin.");
+    return next(err);
   }
 };
 
-exports.postDetails = async (req, res) => {
+exports.postDetails = async (req, res, next) => {
   try {
     const { id } = req.params;
     const post = await Post.findById(id).populate("userId", "email");
@@ -62,10 +72,12 @@ exports.postDetails = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    const err = new Error("Something wrong.Report to admin.");
+    return next(err);
   }
 };
 
-exports.renderEditPage = async (req, res) => {
+exports.renderEditPage = async (req, res, next) => {
   try {
     const { id } = req.params;
     const post = await Post.findById(id);
@@ -81,10 +93,12 @@ exports.renderEditPage = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    const err = new Error("Something wrong.Report to admin.");
+    return next(err);
   }
 };
 
-exports.editPost = async (req, res) => {
+exports.editPost = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { title, description, image } = req.body;
@@ -107,15 +121,19 @@ exports.editPost = async (req, res) => {
     res.redirect("/");
   } catch (error) {
     console.log(error);
+    const err = new Error("Something wrong.Report to admin.");
+    return next(err);
   }
 };
 
-exports.deletePost = async (req, res) => {
+exports.deletePost = async (req, res, next) => {
   try {
     const { id } = req.params;
     await Post.deleteOne({ _id: id, userId: req.user._id });
     res.redirect("/");
   } catch (error) {
     console.log(error);
+    const err = new Error("Something wrong.Report to admin.");
+    return next(err);
   }
 };

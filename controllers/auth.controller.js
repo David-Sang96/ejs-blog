@@ -14,17 +14,23 @@ const transporter = nodeMailer.createTransport({
   },
 });
 
-exports.renderRegisterPage = (req, res) => {
-  const flash = req.flash("error");
-  let message = flash.length > 0 ? flash[0] : null;
-  res.render("auth/register", {
-    title: "Register Page",
-    errorMessage: message,
-    oldFormData: { email: "", userName: "", password: "" },
-  });
+exports.renderRegisterPage = (req, res, next) => {
+  try {
+    const flash = req.flash("error");
+    let message = flash.length > 0 ? flash[0] : null;
+    res.render("auth/register", {
+      title: "Register Page",
+      errorMessage: message,
+      oldFormData: { email: "", userName: "", password: "" },
+    });
+  } catch (error) {
+    console.log(error);
+    const err = new Error("Something wrong.Report to admin.");
+    return next(err);
+  }
 };
 
-exports.userRegister = async (req, res) => {
+exports.userRegister = async (req, res, next) => {
   try {
     const { userName, email, password } = req.body;
     const errors = validationResult(req);
@@ -56,20 +62,28 @@ exports.userRegister = async (req, res) => {
     );
   } catch (error) {
     console.log(error);
+    const err = new Error("Something wrong.Report to admin.");
+    return next(err);
   }
 };
 
-exports.renderLoginPage = (req, res) => {
-  const flash = req.flash("error");
-  let message = flash.length > 0 ? flash[0] : null;
-  res.render("auth/login", {
-    title: "Login Page",
-    errorMessage: message,
-    oldFormData: { email: "", password: "" },
-  });
+exports.renderLoginPage = (req, res, next) => {
+  try {
+    const flash = req.flash("error");
+    let message = flash.length > 0 ? flash[0] : null;
+    res.render("auth/login", {
+      title: "Login Page",
+      errorMessage: message,
+      oldFormData: { email: "", password: "" },
+    });
+  } catch (error) {
+    console.log(error);
+    const err = new Error("Something wrong.Report to admin.");
+    return next(err);
+  }
 };
 
-exports.userLogin = async (req, res) => {
+exports.userLogin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const errors = validationResult(req);
@@ -106,29 +120,39 @@ exports.userLogin = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    const err = new Error("Something wrong.Report to admin.");
+    return next(err);
   }
 };
 
-exports.userLogOut = async (req, res) => {
+exports.userLogOut = async (req, res, next) => {
   try {
     req.session.destroy();
     res.redirect("/");
   } catch (error) {
     console.log(error);
+    const err = new Error("Something wrong.Report to admin.");
+    return next(err);
   }
 };
 
-exports.renderResetPasswordPage = (req, res) => {
-  const flash = req.flash("error");
-  const message = flash.length > 0 ? flash[0] : null;
-  res.render("auth/resetPassForm", {
-    title: "Reset Password Page",
-    errorMessage: message,
-    oldFormData: { email: "" },
-  });
+exports.renderResetPasswordPage = (req, res, next) => {
+  try {
+    const flash = req.flash("error");
+    const message = flash.length > 0 ? flash[0] : null;
+    res.render("auth/resetPassForm", {
+      title: "Reset Password Page",
+      errorMessage: message,
+      oldFormData: { email: "" },
+    });
+  } catch (error) {
+    console.log(error);
+    const err = new Error("Something wrong.Report to admin.");
+    return next(err);
+  }
 };
 
-exports.sendResetPasswordLink = async (req, res) => {
+exports.sendResetPasswordLink = async (req, res, next) => {
   try {
     const { email } = req.body;
     let token;
@@ -160,14 +184,22 @@ exports.sendResetPasswordLink = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    const err = new Error("Something wrong.Report to admin.");
+    return next(err);
   }
 };
 
-exports.renderFeedbackPage = (req, res) => {
-  res.render("auth/feedback", { title: "Feedback Page" });
+exports.renderFeedbackPage = (req, res, next) => {
+  try {
+    res.render("auth/feedback", { title: "Feedback Page" });
+  } catch (error) {
+    console.log(error);
+    const err = new Error("Something wrong.Report to admin.");
+    return next(err);
+  }
 };
 
-exports.renderNewPasswordPage = async (req, res) => {
+exports.renderNewPasswordPage = async (req, res, next) => {
   try {
     const { token } = req.params;
     const userDoc = await User.findOne({
@@ -188,10 +220,12 @@ exports.renderNewPasswordPage = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    const err = new Error("Something wrong.Report to admin.");
+    return next(err);
   }
 };
 
-exports.changeNewPassword = async (req, res) => {
+exports.changeNewPassword = async (req, res, next) => {
   try {
     const { password, confirm_password, resetToken, userId } = req.body;
     const errors = validationResult(req);
@@ -218,5 +252,7 @@ exports.changeNewPassword = async (req, res) => {
     res.redirect("/login");
   } catch (error) {
     console.log(error);
+    const err = new Error("Something wrong.Report to admin.");
+    return next(err);
   }
 };
