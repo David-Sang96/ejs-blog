@@ -10,11 +10,21 @@
   <input hidden value="<%= user_id %>" name="userId" />
   <div>
     <label for="password">New Password</label>
-    <input type="password" id="password" name="password" />
+    <input
+      type="password"
+      id="password"
+      name="password"
+      value="<%= oldFormData.password %>"
+    />
   </div>
   <div>
     <label for="confirm_password">Confirm Password</label>
-    <input type="password" id="confirm_password" name="confirm_password" />
+    <input
+      type="password"
+      id="confirm_password"
+      name="confirm_password"
+      value="<%= oldFormData.confirm_password %>"
+    />
   </div>
   <div class="btn">
     <button>change password</button>

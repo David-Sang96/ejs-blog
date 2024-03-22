@@ -9,11 +9,21 @@
     <input hidden value="<%= csrfToken %>" name="_csrf" />
     <div>
       <label for="email">E-mail</label>
-      <input type="email" id="email" name="email" />
+      <input
+        type="email"
+        id="email"
+        name="email"
+        value="<%= oldFormData.email  %>"
+      />
     </div>
     <div>
       <label for="password">Password</label>
-      <input type="password" id="password" name="password" />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        value="<%= oldFormData.password  %>"
+      />
     </div>
     <a href="/reset-password">Forget password?</a>
     <div class="btn">

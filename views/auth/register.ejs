@@ -8,15 +8,30 @@
   <input hidden value="<%= csrfToken %>" name="_csrf" />
   <div>
     <label for="userName">Name</label>
-    <input type="text" id="userName" name="userName" />
+    <input
+      type="text"
+      id="userName"
+      name="userName"
+      value="<%= oldFormData.userName  %>"
+    />
   </div>
   <div>
     <label for="email">E-mail</label>
-    <input type="email" id="email" name="email" />
+    <input
+      type="email"
+      id="email"
+      name="email"
+      value="<%= oldFormData.email  %>"
+    />
   </div>
   <div>
     <label for="password">Password</label>
-    <input type="password" id="password" name="password" />
+    <input
+      type="password"
+      id="password"
+      name="password"
+      value="<%= oldFormData.password  %>"
+    />
   </div>
   <div class="btn">
     <button>Register</button>
