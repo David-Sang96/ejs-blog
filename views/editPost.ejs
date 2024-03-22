@@ -3,7 +3,14 @@
 <div class="btn">
   <a href="/">back to home</a>
 </div>
-<form action="/admin/update/<%= post.id %>" method="post" class="form">
+<form
+  action="/admin/update/<%= isValidationFail ? oldFormData.id : post.id %>"
+  method="post"
+  class="form"
+>
+  <% if(errorMessage) { %>
+  <p class="errorMsg"><%= errorMessage %></p>
+  <% } %>
   <input hidden value="<%= csrfToken %>" name="_csrf" />
   <div>
     <label for="title">Title</label>
@@ -11,30 +18,24 @@
       type="text"
       id="title"
       name="title"
-      value="<%= post.title  %>"
+      value="<%= isValidationFail ? oldFormData.title : post.title    %>"
       required
     />
   </div>
   <div>
-    <label for="title">Image</label>
+    <label for="image">Image</label>
     <input
       type="text"
       id="title"
       name="image"
-      value="<%= post.image  %>"
+      value="<%= isValidationFail ?   oldFormData.image : post.image  %>"
       required
     />
   </div>
-  <div class="">
+  <div>
     <label for="description">Description</label>
-    <textarea
-      cols="30"
-      rows="5"
-      id="description"
-      name="description"
-      value="<%= post.description  %>"
-    >
-<%= post.description %></textarea
+    <textarea cols="30" rows="5" id="description" name="description" required>
+<%= isValidationFail ? oldFormData.description : post.description%></textarea
     >
   </div>
   <div class="btn">

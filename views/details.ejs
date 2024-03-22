@@ -4,9 +4,13 @@
     <a href="/">back to home</a>
   </div>
   <div class="detail-box">
-    <div class="detail-titleBar">
-      <p class="detail-title"><%= post.title %></p>
-      <% if (post.userId?.toString() === currentLoginUserId?.toString()){ %>
+    <p class="detail-title"><%= post.title %></p>
+    <div class="detail-flex">
+      <div class="detail-author">
+        <p>Author's contact - <%= post.userId.email %></p>
+        <p>Updated At - <%= time %></p>
+      </div>
+      <% if (post.userId._id?.toString() === currentLoginUserId?.toString()){ %>
       <div class="detail-actionBar">
         <a href="/admin/edit-post/<%= post.id %>">edit</a>
         <form action="/admin/delete/<%= post.id %>" method="post">

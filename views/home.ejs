@@ -1,4 +1,4 @@
-<%- include("./includes/head.ejs") %> <%- include("./nav.ejs") %>
+<%- include("./includes/head.ejs") %> <%- include("./nav.ejs" ) %>
 
 <p class="homeHero">
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione vitae
@@ -23,7 +23,7 @@
 </p>
 <div class="btn">
   <% if(isLogin) {%>
-  <a href="/admin/create-post">add new post as <%= currentUserEmail %> </a>
+  <a href="/admin/create-post">add new post </a>
   <% } %>
 </div>
 <hr />
@@ -42,8 +42,11 @@
       <div class="post-title"><%= post.title %></div>
       <a href="/post/<%= post.id  %>">Read More...</a>
     </div>
-    <p class="post-des"><%=post.description.substr(0,130)%></p>
-    <p class="author">Posted by <%=post.userId.userName %></p>
+    <p class="post-des"><%=post.description%></p>
+    <div class="cardFooter">
+      <p class="author">Posted by <%=post.userId %></p>
+      <p class="author"><%=post.date %></p>
+    </div>
   </div>
   <% } %>
 </div>

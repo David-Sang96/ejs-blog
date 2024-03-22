@@ -5,10 +5,13 @@
   </div>
   <div class="items">
     <% if (isLogin ) { %>
-    <form action="/logout" method="post">
-      <input hidden value="<%= csrfToken %>" name="_csrf" />
-      <button>Log Out</button>
-    </form>
+    <div class="navBar">
+      <p>Logged In as - <%= currentUserEmail %></p>
+      <form action="/logout" method="post">
+        <input hidden value="<%= csrfToken %>" name="_csrf" />
+        <button>Log Out</button>
+      </form>
+    </div>
     <% } else {%>
     <div class="auth">
       <a href="/register">Register </a>
