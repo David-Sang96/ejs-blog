@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const postController = require("../controllers/post.controller");
+const postController = require("../controllers/postController");
 const { body } = require("express-validator");
 
 router.get("/create-post", postController.renderCreatePostPage);
@@ -16,12 +16,6 @@ router.post(
       .withMessage("Special characters are not allowed.")
       .isLength({ min: 10 })
       .withMessage("Title must be at least 10 characters"),
-    body("image")
-      .trim()
-      .notEmpty()
-      .withMessage("Image is required")
-      .isURL()
-      .withMessage("Must be a valid URL"),
     body("description")
       .trim()
       .notEmpty()
@@ -45,12 +39,6 @@ router.post(
       .withMessage("Special characters are not allowed..")
       .isLength({ min: 10 })
       .withMessage("Title must be at least 10 characters"),
-    body("image")
-      .trim()
-      .notEmpty()
-      .withMessage("Image is required")
-      .isURL()
-      .withMessage("Must be a valid URL"),
     body("description")
       .trim()
       .notEmpty()

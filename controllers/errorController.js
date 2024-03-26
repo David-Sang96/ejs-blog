@@ -3,9 +3,9 @@ exports.render404Page = (req, res, next) => {
 };
 
 exports.render500page = (err, req, res, next) => {
-  console.log(err.message);
-  res.status(404).render("error/500", {
-    title: "Something went wrong",
+  console.error(err.stack);
+  res.status(500).render("error/500", {
+    title: "Something wrong",
     errorMessage: err.message,
   });
 };

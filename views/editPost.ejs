@@ -7,6 +7,7 @@
   action="/admin/update/<%= isValidationFail ? oldFormData.id : post.id %>"
   method="post"
   class="form"
+  enctype="multipart/form-data"
 >
   <% if(errorMessage) { %>
   <p class="errorMsg"><%= errorMessage %></p>
@@ -25,11 +26,10 @@
   <div>
     <label for="image">Image</label>
     <input
-      type="text"
-      id="title"
+      type="file"
+      id="image"
       name="image"
-      value="<%= isValidationFail ?   oldFormData.image : post.image  %>"
-      required
+      value="<%= isValidationFail ?  oldFormData.image :  post.image %>"
     />
   </div>
   <div>

@@ -3,7 +3,12 @@
 <div class="btn">
   <a href="/"> <i class="fa-solid fa-arrow-left"></i> back</a>
 </div>
-<form action="/admin/create" method="post" class="form">
+<form
+  action="/admin/create"
+  method="post"
+  class="form"
+  enctype="multipart/form-data"
+>
   <% if(errorMessage) { %>
   <p class="errorMsg"><%= errorMessage %></p>
   <% } %>
@@ -19,14 +24,8 @@
     />
   </div>
   <div>
-    <label for="title">Image</label>
-    <input
-      type="text"
-      id="title"
-      name="image"
-      required
-      value="<%= oldFormData.image  %>"
-    />
+    <label for="image">Image</label>
+    <input type="file" id="title" name="image" />
   </div>
   <div>
     <label for="description">Description</label>

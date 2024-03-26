@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <h1 class="font-family: 'Poppins', sans-serif">{{postDoc.title}}</h1>
+    <p><i class="fa-solid fa-user"></i> Author - {{postDoc.userId.userName}}</p>
+    <p>
+      <i class="fa-regular fa-address-book"></i> Contact Mail -
+      {{postDoc.userId.email}}
+    </p>
+    <p><i class="fa-regular fa-calendar"></i> Publish Date - {{postDate}}</p>
+    <img
+      src="http://localhost:4000/{{postDoc.image}}"
+      height="500"
+      width="100%"
+      alt="{{postDoc.title}}"
+    />
+    <p class="font-family: 'Poppins', sans-serif">{{postDoc.description}}</p>
+  </body>
+</html>

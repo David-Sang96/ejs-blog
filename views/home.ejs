@@ -1,4 +1,4 @@
-<%- include("./includes/head.ejs") %> <%- include("./nav.ejs" ) %>
+<%- include("./includes/head.ejs") %> <%- include("./nav.ejs", ) %>
 
 <p class="homeHero">
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione vitae
@@ -28,7 +28,7 @@
 </div>
 <hr />
 
-<h1>Recent Posts</h1>
+<h1 class="homeh1">Recent Posts</h1>
 <% if(posts.length === 0 && isLogin ){ %>
 <div>
   <div class="post-title">No posts</div>
@@ -50,6 +50,17 @@
       <p class="author"><%=post.date %></p>
     </div>
   </div>
+  <% } %>
+</div>
+<div class="pagination">
+  <% if( currentPage > 1){ %>
+  <a href="/?page=<%= currentPage - 1 %>"
+    ><i class="fa-solid fa-angles-left"></i
+  ></a>
+  <% } %> <% if(currentPage < totalPages){ %>
+  <a href="/?page=<%= Number(currentPage) + 1  %>"
+    ><i class="fa-solid fa-angles-right"></i
+  ></a>
   <% } %>
 </div>
 <%- include("./includes/foot.ejs") %>

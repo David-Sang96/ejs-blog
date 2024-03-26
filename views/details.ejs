@@ -12,6 +12,7 @@
       <div class="detail-author">
         <p>Author's contact - <%= post.userId.email %></p>
         <p>Updated At - <%= time %></p>
+        <a href="/save/<%= post._id  %>">save to device</a>
       </div>
       <% if (post.userId._id?.toString() === currentLoginUserId?.toString()){ %>
       <div class="detail-actionBar">
@@ -25,7 +26,7 @@
       </div>
       <% } %>
     </div>
-    <img src="<%= post.image  %>" alt="<%= post.title %>" />
+    <img src="<%= '/' + post.image %>" alt="<%= post.title %>" />
     <p class="post-des"><%= post.description %></p>
   </div>
 </section>
