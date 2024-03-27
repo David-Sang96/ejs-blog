@@ -10,5 +10,34 @@
     />
     <link rel="stylesheet" href="/css/style.css" />
   </head>
-  <body></body>
-</html>
+  <body>
+    <nav>
+      <div class="home">
+        <a href="/"> Blog.IO </a>
+      </div>
+      <div class="items">
+        <% if (isLogin ) { %>
+        <div class="navBar">
+          <div class="createAndLogout">
+         <a href="/admin/create-post"><i class="fa-solid fa-plus"></i> create post </a>
+         <a href="/admin/view-profile"> <i class="fa-regular fa-user"></i> Profile</a>
+            <form action="/logout" method="post">
+              <input hidden value="<%= csrfToken %>" name="_csrf" />
+              <button>
+                <i class="fa-solid fa-right-from-bracket"></i> Log Out
+              </button>
+            </form>
+           
+          </div>
+        </div>
+        <% } else {%>
+        <div class="auth">
+          <a href="/register"> <i class="fa-regular fa-user"></i> Register </a>
+          <a href="/login">
+            <i class="fa-solid fa-arrow-right-to-bracket"></i> Login
+          </a>
+        </div>
+        <% } %>
+      </div>
+    </nav>
+

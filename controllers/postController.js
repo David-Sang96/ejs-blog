@@ -71,7 +71,7 @@ exports.getPostsAndRenderHomePage = async (req, res, next) => {
     }
 
     const posts = await Post.find()
-      .select("title description createdAt")
+      .select("title description image createdAt")
       .populate("userId", "userName email")
       .sort({ createdAt: -1 })
       .skip((currentPage - 1) * postsPerPage)
@@ -79,7 +79,8 @@ exports.getPostsAndRenderHomePage = async (req, res, next) => {
 
     const formattedPosts = posts.map((post) => ({
       id: post.id,
-      title: post.title,
+      title: post.title.substring(0, 40),
+      image: post.image,
       description: post.description.substring(0, 150),
       date: format(new Date(post.createdAt), "dd-MMM-yyyy"),
       userId: post.userId.userName,
