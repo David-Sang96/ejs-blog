@@ -34,7 +34,6 @@ exports.userRegister = async (req, res, next) => {
   try {
     const { userName, email, password } = req.body;
     const errors = validationResult(req);
-    console.log(errors);
     if (!errors.isEmpty()) {
       return res.status(422).render("auth/register", {
         title: "Register Page",
@@ -120,7 +119,7 @@ exports.userLogin = async (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
-    const err = new Error("Something wrong.Report to admin.");
+    const err = new Error("Something wrong,report to admin.");
     return next(err);
   }
 };
@@ -131,7 +130,7 @@ exports.userLogOut = async (req, res, next) => {
     res.redirect("/");
   } catch (error) {
     console.log(error);
-    const err = new Error("Something wrong.Report to admin.");
+    const err = new Error("Something wrong,report to admin.");
     return next(err);
   }
 };
@@ -147,7 +146,7 @@ exports.renderResetPasswordPage = (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
-    const err = new Error("Something wrong.Report to admin.");
+    const err = new Error("Something wrong,report to admin.");
     return next(err);
   }
 };
@@ -184,7 +183,7 @@ exports.sendResetPasswordLink = async (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
-    const err = new Error("Something wrong.Report to admin.");
+    const err = new Error("Something wrong,report to admin.");
     return next(err);
   }
 };
@@ -194,7 +193,7 @@ exports.renderFeedbackPage = (req, res, next) => {
     res.render("auth/feedback", { title: "Feedback Page" });
   } catch (error) {
     console.log(error);
-    const err = new Error("Something wrong.Report to admin.");
+    const err = new Error("Something wrong,report to admin.");
     return next(err);
   }
 };
@@ -220,7 +219,7 @@ exports.renderNewPasswordPage = async (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
-    const err = new Error("Something wrong.Report to admin.");
+    const err = new Error("Something wrong,report to admin.");
     return next(err);
   }
 };
@@ -252,7 +251,7 @@ exports.changeNewPassword = async (req, res, next) => {
     res.redirect("/login");
   } catch (error) {
     console.log(error);
-    const err = new Error("Something wrong.Report to admin.");
+    const err = new Error("Something wrong,report to admin.");
     return next(err);
   }
 };

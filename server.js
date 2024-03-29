@@ -18,6 +18,7 @@ const postRouter = require("./routes/postRoute");
 const adminRouter = require("./routes/adminRoute");
 const authRouter = require("./routes/authRoute");
 const errorController = require("./controllers/errorController");
+const profileRouter = require("./routes/profileRoute");
 
 const User = require("./models/user");
 
@@ -85,12 +86,14 @@ app.use(async (req, res, next) => {
 app.use((req, res, next) => {
   res.locals.isLogin = req.session.isLogin ? true : false;
   res.locals.csrfToken = req.csrfToken();
+  res.locals.userId = req.session.userInfo?._id;
   next();
 });
 
 app.use("/admin", isLoginMiddleware, adminRouter);
 app.use(authRouter);
 app.use(postRouter);
+app.use(profileRouter);
 
 app.all("*", errorController.render404Page);
 app.use(errorController.render500page);

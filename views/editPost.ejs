@@ -1,46 +1,48 @@
-<%- include("./includes/head.ejs") %> 
-<h1 class="title">Edit your post here</h1>
-<div class="btn">
-  <a href="/"> <i class="fa-solid fa-arrow-left"></i> back</a>
-</div>
-<form
-  action="/admin/update/<%= isValidationFail ? oldFormData.id : post.id %>"
-  method="post"
-  class="form"
-  enctype="multipart/form-data"
->
-  <% if(errorMessage) { %>
-  <p class="errorMsg"><%= errorMessage %></p>
-  <% } %>
-  <input hidden value="<%= csrfToken %>" name="_csrf" />
-  <div>
-    <label for="title">Title</label>
-    <input
-      type="text"
-      id="title"
-      name="title"
-      value="<%= isValidationFail ? oldFormData.title : post.title    %>"
-      required
-    />
-  </div>
-  <div>
-    <label for="image">Image</label>
-    <input
-      type="file"
-      id="image"
-      name="image"
-      value="<%= isValidationFail ?  oldFormData.image :  post.image %>"
-    />
-  </div>
-  <div>
-    <label for="description">Description</label>
-    <textarea cols="30" rows="5" id="description" name="description" required>
-<%= isValidationFail ? oldFormData.description : post.description%></textarea
-    >
-  </div>
+<%- include("./includes/head.ejs") %>
+<section>
+  <h1 class="title">Edit your post here</h1>
   <div class="btn">
-    <button><i class="fa-regular fa-pen-to-square"></i> Edit Post</button>
+    <a href="/"> <i class="fa-solid fa-arrow-left"></i> back</a>
   </div>
-</form>
+  <form
+    action="/admin/update/<%= isValidationFail ? oldFormData.id : post.id %>"
+    method="post"
+    class="form"
+    enctype="multipart/form-data"
+  >
+    <% if(errorMessage) { %>
+    <p class="errorMsg"><%= errorMessage %></p>
+    <% } %>
+    <input hidden value="<%= csrfToken %>" name="_csrf" />
+    <div>
+      <label for="title">Title</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        value="<%= isValidationFail ? oldFormData.title : post.title    %>"
+        required
+      />
+    </div>
+    <div>
+      <label for="image">Image</label>
+      <input
+        type="file"
+        id="image"
+        name="image"
+        value="<%= isValidationFail ?  oldFormData.image :  post.image %>"
+      />
+    </div>
+    <div>
+      <label for="description">Description</label>
+      <textarea cols="30" rows="5" id="description" name="description" required>
+<%= isValidationFail ? oldFormData.description : post.description%></textarea
+      >
+    </div>
+    <div class="btn">
+      <button><i class="fa-regular fa-pen-to-square"></i> Edit Post</button>
+    </div>
+  </form>
+</section>
 
 <%- include("./includes/foot.ejs") %>

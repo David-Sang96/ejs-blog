@@ -1,0 +1,21 @@
+<%- include("../includes/head.ejs") %>
+<h1 class="title">Update username here</h1>
+<form action="/reset-username" method="post" class="form">
+  <% if(errorMessage) { %>
+  <p class="errorMsg"><%= errorMessage %></p>
+  <% } %>
+  <input hidden value="<%= csrfToken %>" name="_csrf" />
+  <div>
+    <label for="username">Username</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      value="<%= oldFormData.username %>"
+    />
+  </div>
+  <div class="btn">
+    <button>update</button>
+  </div>
+</form>
+<%- include("../includes/foot.ejs") %>

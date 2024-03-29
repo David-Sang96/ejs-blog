@@ -1,25 +1,29 @@
-<%- include("./includes/head.ejs") %>
+<%- include("../includes/head.ejs") %>
 <section>
-  <h1 class="homeh1">Recent Posts</h1>
-  <% if(posts.length === 0 && isLogin ){ %>
-  <div>
-    <div class="post-title">No posts</div>
-    <div>Create new post</div>
-  </div>
+  <% if(errorMessage) { %>
+  <p class="errorMsg"><%= errorMessage %></p>
   <% } %>
+  <div class="profile-head">
+    <div>
+      <div class="profile-user">
+        <i class="fa-solid fa-circle-user"></i>
+        <p><%= posts[0].userName %></p>
+      </div>
+      <p><%= email %></p>
+    </div>
+    <div class="profile-action">
+      <a href="/username">Set usernSame</a>
+      <a href="/premium">Buy IO premium</a>
+    </div>
+  </div>
   <div class="cardBox">
     <% for(const post of posts ){ %>
     <div class="card">
       <img src="<%=  '/' + post.image  %>" alt="<%= post.title  %>" />
       <a class="post-title" href="/post/<%= post.id  %>"><%= post.title %></a>
       <p class="post-des"><%=post.description%></p>
-
       <div class="cardFooter">
-        <% if(post.userId.toString() === currentUserId.toString()){ %>
-        <a href="/profile">Posted by <%=post.userName %></a>
-        <% }else{ %>
-        <a href="/profile/<%= post.userId  %>">Posted by <%=post.userName %></a>
-        <% } %>
+        <p class="author">Posted by <%=post.userName %></p>
         <p class="author"><%=post.date %></p>
       </div>
     </div>
@@ -27,14 +31,14 @@
   </div>
   <div class="pagination">
     <% if( currentPage > 1){ %>
-    <a href="/?page=<%= currentPage - 1 %>"
+    <a href="/profile/?page=<%= currentPage - 1 %>"
       ><i class="fa-solid fa-angles-left"></i
     ></a>
     <% } %> <% if(currentPage < totalPages){ %>
-    <a href="/?page=<%= Number(currentPage) + 1  %>"
+    <a href="/profile/?page=<%= Number(currentPage) + 1  %>"
       ><i class="fa-solid fa-angles-right"></i
     ></a>
     <% } %>
   </div>
 </section>
-<%- include("./includes/foot.ejs") %>
+<%- include("../includes/foot.ejs") %>

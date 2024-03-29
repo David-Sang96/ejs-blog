@@ -154,6 +154,14 @@ label {
   padding-top: 15px;
 }
 
+.cardFooter a {
+  font-size: 13px;
+  font-weight: bold;
+  background-color: transparent;
+  color: black;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
 .author {
   font-size: 14px;
   font-weight: bold;
@@ -290,4 +298,112 @@ button {
 .pagination {
   margin-top: 20px;
   text-align: end;
+}
+
+.public-head {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: center;
+}
+span {
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.fa-circle-user {
+  font-size: 30px;
+}
+
+.profile-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.profile-head .fa-circle-user {
+  font-size: 3rem;
+}
+
+.profile-head p {
+  font-size: 20px;
+}
+.profile-head a {
+  display: block;
+  margin-bottom: 10px;
+}
+.profile-user {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.profile-action a {
+  width: 100%;
+  text-align: center;
+}
+
+.premium {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5rem;
+}
+.premium ul {
+  padding-top: 10px;
+}
+.premium ul li {
+  padding-bottom: 5px;
+}
+
+.premium-card {
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+  border-radius: 10px;
+  padding: 3rem 2rem;
+}
+
+.bn632-hover {
+  font-size: 16px;
+  user-select: none;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 20px;
+  height: 40px;
+  padding-top: 10px;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 10px;
+  moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.bn632-hover:hover {
+  background-position: 100% 0;
+  moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.bn632-hover:focus {
+  outline: none;
+}
+
+.bn632-hover.bn25 {
+  background-image: linear-gradient(
+    to right,
+    #29323c,
+    #485563,
+    #2b5876,
+    #4e4376
+  );
+  box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
 }

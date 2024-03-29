@@ -16,7 +16,7 @@ exports.renderCreatePostPage = (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
-    const err = new Error("Something wrong.Report to admin.");
+    const err = new Error("Something wrong,report to admin.");
     return next(err);
   }
 };
@@ -50,7 +50,7 @@ exports.createPost = async (req, res, next) => {
     res.redirect("/");
   } catch (error) {
     console.log(error);
-    const err = new Error("Something wrong.Report to admin.");
+    const err = new Error("Something wrong,report to admin.");
     return next(err);
   }
 };
@@ -83,17 +83,19 @@ exports.getPostsAndRenderHomePage = async (req, res, next) => {
       image: post.image,
       description: post.description.substring(0, 150),
       date: format(new Date(post.createdAt), "dd-MMM-yyyy"),
-      userId: post.userId.userName,
+      userName: post.userId.userName,
+      userId: post.userId._id,
     }));
     res.render("home", {
       title: "Home",
       posts: formattedPosts,
+      currentUserId: req.session.userInfo?._id,
       currentPage,
       totalPages,
     });
   } catch (error) {
     console.error(error);
-    const err = new Error("Something wrong.Report to admin.");
+    const err = new Error("Something wrong,report to admin.");
     return next(err);
   }
 };
@@ -110,7 +112,7 @@ exports.postDetails = async (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
-    const err = new Error("Something wrong.Report to admin.");
+    const err = new Error("Something wrong,report to admin.");
     return next(err);
   }
 };
@@ -131,7 +133,7 @@ exports.renderEditPage = async (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
-    const err = new Error("Something wrong.Report to admin.");
+    const err = new Error("Something wrong,report to admin.");
     return next(err);
   }
 };
@@ -163,7 +165,7 @@ exports.editPost = async (req, res, next) => {
     res.redirect("/");
   } catch (error) {
     console.log(error);
-    const err = new Error("Something wrong.Report to admin.");
+    const err = new Error("Something wrong,report to admin.");
     return next(err);
   }
 };
@@ -180,7 +182,7 @@ exports.deletePost = async (req, res, next) => {
     res.redirect("/");
   } catch (error) {
     console.log(error);
-    const err = new Error("Something wrong.Report to admin.");
+    const err = new Error("Something wrong,report to admin.");
     return next(err);
   }
 };
@@ -226,7 +228,7 @@ exports.savePost = async (req, res, next) => {
     });
   } catch (error) {
     console.error(error);
-    const err = new Error("Something wrong.Report to admin.");
+    const err = new Error("Something wrong,report to admin.");
     return next(err);
   }
 };

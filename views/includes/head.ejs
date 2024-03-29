@@ -13,21 +13,22 @@
   <body>
     <nav>
       <div class="home">
-        <a href="/"> Blog.IO </a>
+        <a href="/">Blog.io </a>
       </div>
       <div class="items">
         <% if (isLogin ) { %>
         <div class="navBar">
           <div class="createAndLogout">
-         <a href="/admin/create-post"><i class="fa-solid fa-plus"></i> create post </a>
-         <a href="/admin/view-profile"> <i class="fa-regular fa-user"></i> Profile</a>
+            <a href="/admin/create-post"
+              ><i class="fa-solid fa-plus"></i> create post
+            </a>
+            <a href="/profile"> <i class="fa-solid fa-user-tie"></i> Profile</a>
             <form action="/logout" method="post">
               <input hidden value="<%= csrfToken %>" name="_csrf" />
               <button>
                 <i class="fa-solid fa-right-from-bracket"></i> Log Out
               </button>
             </form>
-           
           </div>
         </div>
         <% } else {%>
