@@ -18,8 +18,9 @@ router.get(
 router.post(
   "/reset-username",
   body("username")
-    .notEmpty()
     .trim()
+    .notEmpty()
+    .withMessage("username is required")
     .isLength({ min: 4 })
     .withMessage("Name must be at least 4 characters.")
     .isLength({ max: 15 })
@@ -29,5 +30,23 @@ router.post(
 );
 
 router.get("/premium", isLoginMiddleware, profileController.renderPremiumPage);
+
+router.get(
+  "/subscription-success",
+  isLoginMiddleware,
+  profileController.renderSubscriptionSuccessPage
+);
+
+router.get(
+  "/premium-details",
+  isLoginMiddleware,
+  profileController.premiumDetails
+);
+
+router.get(
+  "/subscription-cancel",
+  isLoginMiddleware,
+  profileController.renderPremiumPage
+);
 
 module.exports = router;

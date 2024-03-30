@@ -16,11 +16,9 @@ const transporter = nodeMailer.createTransport({
 
 exports.renderRegisterPage = (req, res, next) => {
   try {
-    const flash = req.flash("error");
-    let message = flash.length > 0 ? flash[0] : null;
     res.render("auth/register", {
       title: "Register Page",
-      errorMessage: message,
+      errorMessage: "",
       oldFormData: { email: "", userName: "", password: "" },
     });
   } catch (error) {
@@ -34,6 +32,7 @@ exports.userRegister = async (req, res, next) => {
   try {
     const { userName, email, password } = req.body;
     const errors = validationResult(req);
+    console.log(errors);
     if (!errors.isEmpty()) {
       return res.status(422).render("auth/register", {
         title: "Register Page",
@@ -72,7 +71,7 @@ exports.renderLoginPage = (req, res, next) => {
     let message = flash.length > 0 ? flash[0] : null;
     res.render("auth/login", {
       title: "Login Page",
-      errorMessage: message,
+      errorMessage: "",
       oldFormData: { email: "", password: "" },
     });
   } catch (error) {

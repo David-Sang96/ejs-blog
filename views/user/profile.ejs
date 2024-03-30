@@ -4,16 +4,26 @@
   <p class="errorMsg"><%= errorMessage %></p>
   <% } %>
   <div class="profile-head">
-    <div>
+    <div class="profile-status">
       <div class="profile-user">
         <i class="fa-solid fa-circle-user"></i>
         <p><%= posts[0].userName %></p>
+        <% if(posts[0].premiumUser){ %>
+        <i
+          class="fa-solid fa-star animate__animated animate__jello animate__infinite animate__fast"
+          style="color: green; font-size: larger"
+        ></i>
+        <% } %>
       </div>
       <p><%= email %></p>
     </div>
     <div class="profile-action">
-      <a href="/username">Set usernSame</a>
-      <a href="/premium">Buy IO premium</a>
+      <% if(posts[0].premiumUser){ %>
+      <a href="/username">Edit username</a>
+      <a href="/premium-details">IO premium status</a>
+      <% } else{%>
+      <a href="/premium">Purchase premium package</a>
+      <% } %>
     </div>
   </div>
   <div class="cardBox">
@@ -22,10 +32,6 @@
       <img src="<%=  '/' + post.image  %>" alt="<%= post.title  %>" />
       <a class="post-title" href="/post/<%= post.id  %>"><%= post.title %></a>
       <p class="post-des"><%=post.description%></p>
-      <div class="cardFooter">
-        <p class="author">Posted by <%=post.userName %></p>
-        <p class="author"><%=post.date %></p>
-      </div>
     </div>
     <% } %>
   </div>

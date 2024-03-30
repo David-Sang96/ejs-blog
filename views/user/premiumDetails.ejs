@@ -1,0 +1,42 @@
+<%- include("../includes/head.ejs") %>
+<section class="payment-details">
+  <h3>Premium Details</h3>
+  <div class="voucher">
+    <div class="left">
+      <p>CustomerId</p>
+      <p>InvoiceId</p>
+      <p>Country</p>
+      <p>Email</p>
+      <p>Name</p>
+      <p>Phone</p>
+      <p>PaymentStatus</p>
+      <p>Status</p>
+      <p>Date</p>
+    </div>
+    <div class="middle">
+      <div style="display: flex; flex-direction: column; font-weight: bolder">
+        <span>:</span>
+        <span>:</span>
+        <span>:</span>
+        <span>:</span>
+        <span>:</span>
+        <span>:</span>
+        <span>:</span>
+        <span>:</span>
+        <span>:</span>
+      </div>
+    </div>
+    <div class="right">
+      <p><%= customer_id %></p>
+      <p><%= invoice_id %></p>
+      <p><%= country %></p>
+      <p><%= email %></p>
+      <p><%= name %></p>
+      <p><%if(phone ) { %> <%= phone %> <% } else{%> - <% } %></p>
+      <p><%= payment_status %></p>
+      <p><%= status %></p>
+      <p><%= date %> (<%= time %>)</p>
+    </div>
+  </div>
+</section>
+<%- include("../includes/foot.ejs") %>

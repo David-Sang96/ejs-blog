@@ -17,10 +17,9 @@
 }
 
 body {
-  width: 1400px;
+  width: 1500px;
   margin: auto;
   background-color: beige;
-  /* user-select: none; */
   padding-bottom: 2rem;
 }
 
@@ -29,7 +28,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   background-color: bisque;
-  padding: 20px;
+  padding: 10px;
   margin-bottom: 10px;
 }
 
@@ -69,7 +68,7 @@ h1 {
 
 .homeh1 {
   padding-top: 0;
-  padding-bottom: 1.5rem;
+  padding-bottom: 1rem;
 }
 
 .form {
@@ -267,7 +266,7 @@ button {
 .warnMsg {
   padding-bottom: 10px;
   font-weight: bold;
-  color: green;
+  color: red;
   font-size: 20px;
 }
 .feedbackBox {
@@ -306,7 +305,7 @@ button {
   margin-bottom: 5px;
   text-align: center;
 }
-span {
+.public-profile-span {
   margin-bottom: 20px;
   font-size: 20px;
   font-weight: bold;
@@ -341,7 +340,9 @@ span {
   align-items: center;
   gap: 5px;
 }
-
+.profile-status {
+  margin-bottom: 15px;
+}
 .profile-action a {
   width: 100%;
   text-align: center;
@@ -353,8 +354,13 @@ span {
   align-items: center;
   margin-top: 5rem;
 }
+.premium h2 {
+  text-align: center;
+}
 .premium ul {
-  padding-top: 10px;
+  padding-top: 20px;
+  font-size: 18px;
+  list-style: square;
 }
 .premium ul li {
   padding-bottom: 5px;
@@ -363,7 +369,7 @@ span {
 .premium-card {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
   border-radius: 10px;
-  padding: 3rem 2rem;
+  padding: 2rem;
 }
 
 .bn632-hover {
@@ -373,8 +379,9 @@ span {
   color: #fff;
   cursor: pointer;
   margin: 20px;
-  height: 40px;
-  padding-top: 10px;
+  height: 35px;
+  padding-top: 7px;
+
   text-align: center;
   border: none;
   background-size: 300% 100%;
@@ -406,4 +413,24 @@ span {
     #4e4376
   );
   box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+}
+
+.payment-details {
+  width: 33%;
+  margin: auto;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  padding: 20px;
+  margin-top: 2rem;
+}
+
+.payment-details h3 {
+  font-size: 30px;
+  padding-bottom: 15px;
+}
+
+.voucher {
+  display: flex;
+  gap: 15px;
+  font-size: 18px;
 }

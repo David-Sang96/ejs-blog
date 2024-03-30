@@ -10,12 +10,17 @@ router.post(
   "/register",
   [
     body("userName")
-      .notEmpty()
       .trim()
-      .isLength({ min: 4 })
-      .withMessage("Name must be at least 4 characters."),
-    body("email")
       .notEmpty()
+      .withMessage("Username is required")
+      .isLength({ min: 4 })
+      .withMessage("Name must be at least 4 characters.")
+      .matches(/^[a-zA-Z0-9\s]+$/)
+      .withMessage("Special characters are not allowed."),
+    body("email")
+      .trim()
+      .notEmpty()
+      .withMessage("E-mail is required")
       .isEmail()
       .withMessage("Not a valid e-mail address")
       .custom((value, { req }) => {
@@ -27,9 +32,11 @@ router.post(
         });
       }),
     body("password")
-      .notEmpty()
       .trim()
+      .notEmpty()
+      .withMessage("password is required")
       .isLength({ min: 5 })
+      .withMessage("Password must be at least 5 characters")
       .isAlphanumeric()
       .withMessage(
         "Password must be at least 5 characters and contains only letters and numbers."
@@ -45,10 +52,16 @@ router.get("/login", userController.renderLoginPage);
 router.post(
   "/login",
   [
-    body("email").notEmpty().isEmail().withMessage("Invalid e-mail address"),
-    body("password")
-      .notEmpty()
+    body("email")
       .trim()
+      .notEmpty()
+      .withMessage("E-mail is required")
+      .isEmail()
+      .withMessage("Invalid e-mail address"),
+    body("password")
+      .trim()
+      .notEmpty()
+      .withMessage("password is required")
       .isLength({ min: 5 })
       .isAlphanumeric()
       .withMessage("Password must be valid."),
@@ -61,7 +74,9 @@ router.get("/reset-password", userController.renderResetPasswordPage);
 router.post(
   "/reset-password",
   body("email")
+    .trim()
     .notEmpty()
+    .withMessage("email is required")
     .isEmail()
     .withMessage("Not a valid e-mail address")
     .custom((value, { req }) => {
@@ -82,8 +97,9 @@ router.post(
   "/change-new-password",
   [
     body("password")
-      .notEmpty()
       .trim()
+      .notEmpty()
+      .withMessage("password is required")
       .isLength({ min: 5 })
       .isAlphanumeric()
       .withMessage(

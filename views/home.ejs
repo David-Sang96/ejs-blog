@@ -15,10 +15,24 @@
       <p class="post-des"><%=post.description%></p>
 
       <div class="cardFooter">
-        <% if(post.userId.toString() === currentUserId.toString()){ %>
-        <a href="/profile">Posted by <%=post.userName %></a>
+        <% if(post.userId.toString() === currentUserId?.toString()){ %>
+        <a href="/profile"
+          >Posted by <%=post.userName %> <%if(post.premiumUser){ %>
+          <i
+            class="fa-solid fa-star animate__animated animate__jello animate__infinite animate__fast"
+            style="color: green; font-size: large"
+          ></i>
+          <% } %></a
+        >
         <% }else{ %>
-        <a href="/profile/<%= post.userId  %>">Posted by <%=post.userName %></a>
+        <a href="/profile/<%= post.userId  %>"
+          >Posted by <%=post.userName %> <%if(post.premiumUser){ %>
+          <i
+            class="fa-solid fa-star animate__animated animate__jello animate__infinite animate__fast"
+            style="color: green; font-size: large"
+          ></i>
+          <% } %></a
+        >
         <% } %>
         <p class="author"><%=post.date %></p>
       </div>

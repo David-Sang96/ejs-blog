@@ -5,9 +5,21 @@
     <ul>
       <li>Can save post as PDF file</li>
       <li>Animate profile badge</li>
-      <li>manage username limitlessly</li>
+      <li>Manage username limitlessly</li>
     </ul>
-    <p class="bn632-hover bn25">Buy IO premium</p>
+    <button class="bn632-hover bn25 checkout-btn">Buy IO premium</button>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+      var stripe = Stripe(
+        "pk_test_51OzYnKLnkPKv2t55992gXwi6XiFe7y2pc3oYJN8C8FKJ7I9bC7Zo8t8xVSG0LaLyORMR4AHxu0JYKNC4qotE5rvc00yft4Kudb"
+      );
+      var checkoutBtn = document.querySelector(".checkout-btn");
+      checkoutBtn.addEventListener("click", () => {
+        stripe.redirectToCheckout({
+          sessionId: "<%= session_id %>",
+        });
+      });
+    </script>
   </div>
 </section>
 <%- include("../includes/foot.ejs") %>

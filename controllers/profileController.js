@@ -1,7 +1,10 @@
 const Post = require("../models/post");
 const User = require("../models/user");
-const { format } = require("date-fns");
+const { format, fromUnixTime } = require("date-fns");
 const { validationResult } = require("express-validator");
+const stripe = require("stripe")(
+  "sk_test_51OzYnKLnkPKv2t555Ez45iuhFMuJKHBUmCpeNJwqshcJKYhpccc69IFgvrmrC0b5zmDmY0Hdasw26eEYrk5kCwXg00fEvAmNFM"
+);
 
 exports.renderProfilePage = async (req, res, next) => {
   try {
@@ -21,7 +24,7 @@ exports.renderProfilePage = async (req, res, next) => {
     }
 
     const posts = await Post.find({ userId: req.user._id })
-      .populate("userId", "email userName")
+      .populate("userId", "email userName isPremium")
       .sort({ createdAt: -1 })
       .skip((currentPage - 1) * postPerPage)
       .limit(postPerPage);
@@ -33,6 +36,7 @@ exports.renderProfilePage = async (req, res, next) => {
       description: post.description.substring(0, 150),
       date: format(new Date(post.createdAt), "dd-MMM-yyyy"),
       userName: post.userId.userName,
+      premiumUser: post.userId.isPremium,
     }));
     res.render("user/profile", {
       title: req.session.userInfo.userName,
@@ -68,7 +72,7 @@ exports.renderPublicProfilePage = async (req, res, next) => {
     }
 
     const posts = await Post.find({ userId: id })
-      .populate("userId", "email userName")
+      .populate("userId", "email userName isPremium")
       .sort({ createdAt: -1 })
       .skip((currentPage - 1) * postPerPage)
       .limit(postPerPage);
@@ -79,6 +83,7 @@ exports.renderPublicProfilePage = async (req, res, next) => {
       description: post.description.substring(0, 150),
       date: format(new Date(post.createdAt), "dd-MMM-yyyy"),
       userName: post.userId.userName,
+      premiumUser: post.userId.isPremium,
     }));
 
     res.render("user/publicProfile", {
@@ -147,9 +152,77 @@ exports.resetUserName = async (req, res, next) => {
   }
 };
 
-exports.renderPremiumPage = (req, res, next) => {
+exports.renderPremiumPage = async (req, res, next) => {
   try {
-    res.render("user/premium", { title: "Premium Page", errorMessage: "" });
+    const stripeSession = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price: "price_1OzZa4LnkPKv2t555vrNA6os",
+          quantity: 1,
+        },
+      ],
+      mode: "subscription",
+      success_url: `${req.protocol}://${req.get(
+        "host"
+      )}/subscription-success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${req.protocol}://${req.get("host")}/subscription-cancel`,
+    });
+    res.render("user/premium", {
+      title: " Premium Page",
+      errorMessage: "",
+      session_id: stripeSession.id,
+    });
+  } catch (error) {
+    console.error(error);
+    const err = new Error("Something wrong,report to admin.");
+    next(err);
+  }
+};
+
+exports.renderSubscriptionSuccessPage = async (req, res, next) => {
+  try {
+    const { session_id } = req.query;
+    if (!session_id || !session_id.includes("cs_test_"))
+      return res.redirect("/profile");
+    const userDoc = await User.findById(req.session.userInfo._id);
+    userDoc.payment_session_key = session_id;
+    userDoc.isPremium = true;
+    userDoc.save();
+    res.status(201).render("user/subscriptionSuccess", {
+      title: "Subscription Success Page",
+      subscription_id: session_id,
+    });
+  } catch (error) {
+    console.error(error);
+    const err = new Error("Something wrong,report to admin.");
+    next(err);
+  }
+};
+
+exports.premiumDetails = async (req, res, next) => {
+  try {
+    const userDoc = await User.findById(req.user._id);
+    const stripeSession = await stripe.checkout.sessions.retrieve(
+      userDoc.payment_session_key
+    );
+    const date = fromUnixTime(stripeSession.created);
+    const formattedDate = format(date, " dd-MMM-yyyy ");
+    const formattedTime = format(date, "hh:mm:ss a ");
+    res.render("user/premiumDetails", {
+      title: "Premium Status",
+      customer_id: stripeSession.customer,
+      country: stripeSession.customer_details.address.country,
+      postalCode: stripeSession.customer_details.address.postal_code,
+      email: stripeSession.customer_details.email,
+      name: stripeSession.customer_details.name,
+      phone: stripeSession.customer_details.phone,
+      invoice_id: stripeSession.invoice,
+      payment_status: stripeSession.payment_status,
+      status: stripeSession.status,
+      date: formattedDate,
+      time: formattedTime,
+    });
   } catch (error) {
     console.error(error);
     const err = new Error("Something wrong,report to admin.");
