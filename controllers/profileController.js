@@ -2,9 +2,8 @@ const Post = require("../models/post");
 const User = require("../models/user");
 const { format, fromUnixTime } = require("date-fns");
 const { validationResult } = require("express-validator");
-const stripe = require("stripe")(
-  "sk_test_51OzYnKLnkPKv2t555Ez45iuhFMuJKHBUmCpeNJwqshcJKYhpccc69IFgvrmrC0b5zmDmY0Hdasw26eEYrk5kCwXg00fEvAmNFM"
-);
+require("dotenv").config();
+const stripe = require("stripe")(process.env.STRIPE_KEY);
 
 exports.renderProfilePage = async (req, res, next) => {
   try {
