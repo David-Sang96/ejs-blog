@@ -4,9 +4,11 @@
   <p class="errorMsg"><%= errorMessage %></p>
   <% } %>
   <p class="public-head">Posts created By</p>
-  <span class="public-profile-span"
-    ><i class="fa-solid fa-circle-user"></i> <%= userName %> <%
-    if(posts[0].premiumUser){ %>
+  <span class="public-profile-span">
+    <% if(!posts[0].profileImg){ %>
+    <i class="fa-solid fa-circle-user"></i>
+    <% }else { %> <img src="<%= "/" + posts[0].profileImg %>" alt="<%=
+    posts[0].title %>"> <% } %> <%= userName %> <% if(posts[0].premiumUser){ %>
     <i
       class="fa-solid fa-star animate__animated animate__jello animate__infinite animate__fast"
       style="color: green; font-size: large"

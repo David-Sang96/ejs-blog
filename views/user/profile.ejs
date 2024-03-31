@@ -4,9 +4,12 @@
   <p class="errorMsg"><%= errorMessage %></p>
   <% } %>
   <div class="profile-head">
-    <div class="profile-status">
+    <div>
       <div class="profile-user">
+        <% if (!posts[0].profileImg){ %>
         <i class="fa-solid fa-circle-user"></i>
+        <% }else { %> <img src="<%= "/" + posts[0].profileImg %>" alt="<%=
+        posts[0].title %>" /> <% } %>
         <p><%= posts[0].userName %></p>
         <% if(posts[0].premiumUser){ %>
         <i
@@ -20,6 +23,7 @@
     <div class="profile-action">
       <% if(posts[0].premiumUser){ %>
       <a href="/username">Edit username</a>
+      <a href="/profile-image">Upload profile image</a>
       <a href="/premium-details">IO premium status</a>
       <% } else{%>
       <a href="/premium">Purchase premium package</a>

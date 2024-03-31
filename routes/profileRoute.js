@@ -4,6 +4,7 @@ const { body } = require("express-validator");
 
 const profileController = require("../controllers/profileController");
 const { isLogin: isLoginMiddleware } = require("../middleware/isLogin");
+const { premiumUser } = require("../middleware/isPremiumUser");
 
 router.get("/profile", isLoginMiddleware, profileController.renderProfilePage);
 
@@ -12,6 +13,7 @@ router.get("/profile/:id", profileController.renderPublicProfilePage);
 router.get(
   "/username",
   isLoginMiddleware,
+  premiumUser,
   profileController.renderResetUserNamePage
 );
 
@@ -26,6 +28,7 @@ router.post(
     .isLength({ max: 15 })
     .withMessage("Name must be only 15 characters."),
   isLoginMiddleware,
+  premiumUser,
   profileController.resetUserName
 );
 
@@ -47,6 +50,20 @@ router.get(
   "/subscription-cancel",
   isLoginMiddleware,
   profileController.renderPremiumPage
+);
+
+router.get(
+  "/profile-image",
+  isLoginMiddleware,
+  premiumUser,
+  profileController.renderProfileImgUploadPage
+);
+
+router.post(
+  "/profile-image",
+  isLoginMiddleware,
+  premiumUser,
+  profileController.uploadProfileImage
 );
 
 module.exports = router;

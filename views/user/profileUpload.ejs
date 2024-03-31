@@ -1,0 +1,21 @@
+<%- include("../includes/head.ejs") %>
+<h1 class="title">Upload Profile Image</h1>
+<form
+  action="/profile-image"
+  method="post"
+  class="form"
+  enctype="multipart/form-data"
+>
+  <% if(errorMessage) { %>
+  <p class="errorMsg"><%= errorMessage %></p>
+  <% } %>
+  <input hidden value="<%= csrfToken %>" name="_csrf" />
+  <div>
+    <label for="image">Upload Image</label>
+    <input type="file" id="image" name="image" />
+  </div>
+  <div class="btn">
+    <button>upload</button>
+  </div>
+</form>
+<%- include("../includes/foot.ejs") %>

@@ -127,9 +127,23 @@ label {
 .cardFooter {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
 }
 
+.card .profile_img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.fa-calendar-days {
+  font-size: 38px;
+  display: flex;
+  justify-content: end;
+  padding-bottom: 3px;
+}
 .post-box a {
   font-size: 14px;
   padding: 3px 5px;
@@ -315,7 +329,7 @@ button {
   gap: 5px;
 }
 .fa-circle-user {
-  font-size: 30px;
+  font-size: 40px;
 }
 
 .profile-head {
@@ -340,9 +354,13 @@ button {
   align-items: center;
   gap: 5px;
 }
-.profile-status {
-  margin-bottom: 15px;
+
+.profile-user img,
+.public-profile-span img {
+  width: 45px;
+  border-radius: 50%;
 }
+
 .profile-action a {
   width: 100%;
   text-align: center;
@@ -418,8 +436,8 @@ button {
 .payment-details {
   width: 33%;
   margin: auto;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
   padding: 20px;
   margin-top: 2rem;
 }
@@ -433,4 +451,14 @@ button {
   display: flex;
   gap: 15px;
   font-size: 18px;
+}
+
+.no-post {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.no-post h2 {
+  font-size: 2rem;
+  padding-bottom: 2rem;
 }

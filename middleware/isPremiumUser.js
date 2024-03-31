@@ -1,6 +1,9 @@
-exports.premiumUser = (req, res, next) => {
-  if (!req.session.userInfo?.isPremium) {
-    return res.redirect("/");
+const User = require("../models/user");
+
+exports.premiumUser = async (req, res, next) => {
+  const userDoc = await User.findById(req.user._id);
+  if (!userDoc || !userDoc.isPremium) {
+    return res.redirect("/premium");
   }
   next();
 };

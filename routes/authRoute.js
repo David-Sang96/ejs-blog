@@ -101,14 +101,13 @@ router.post(
       .notEmpty()
       .withMessage("password is required")
       .isLength({ min: 5 })
-      .isAlphanumeric()
-      .withMessage(
-        "Password must be at least 5 characters and contains only letters and numbers."
-      ),
+      .withMessage("Password must be at least 5 characters.")
+      .matches(/^[a-zA-Z0-9\s]+$/)
+      .withMessage("Special characters are not allowed."),
     body("confirm_password")
-      .notEmpty()
       .trim()
-      .withMessage("Please enter valid password.")
+      .notEmpty()
+      .withMessage("password is required")
       .custom((value, { req }) => {
         if (value !== req.body.password) {
           throw new Error("Password doesn't match.");

@@ -14,17 +14,23 @@ exports.renderProfilePage = async (req, res, next) => {
     const totalPosts = await Post.find({
       userId: req.user._id,
     }).countDocuments();
+
+    if (!totalPosts) {
+      return res.status(422).render("error/noPost", {
+        title: req.session.userInfo.userName,
+      });
+    }
     const totalPages = Math.ceil(totalPosts / postPerPage);
 
     if (currentPage > totalPages || currentPage < 1) {
       return res.status(500).render("error/500", {
-        title: "Profile",
+        title: "Something wrong",
         errorMessage: "no post available",
       });
     }
 
     const posts = await Post.find({ userId: req.user._id })
-      .populate("userId", "email userName isPremium")
+      .populate("userId", "email userName isPremium profile_imgUrl")
       .sort({ createdAt: -1 })
       .skip((currentPage - 1) * postPerPage)
       .limit(postPerPage);
@@ -37,6 +43,7 @@ exports.renderProfilePage = async (req, res, next) => {
       date: format(new Date(post.createdAt), "dd-MMM-yyyy"),
       userName: post.userId.userName,
       premiumUser: post.userId.isPremium,
+      profileImg: post.userId.profile_imgUrl,
     }));
     res.render("user/profile", {
       title: req.session.userInfo.userName,
@@ -72,7 +79,7 @@ exports.renderPublicProfilePage = async (req, res, next) => {
     }
 
     const posts = await Post.find({ userId: id })
-      .populate("userId", "email userName isPremium")
+      .populate("userId", "email userName isPremium profile_imgUrl")
       .sort({ createdAt: -1 })
       .skip((currentPage - 1) * postPerPage)
       .limit(postPerPage);
@@ -84,6 +91,7 @@ exports.renderPublicProfilePage = async (req, res, next) => {
       date: format(new Date(post.createdAt), "dd-MMM-yyyy"),
       userName: post.userId.userName,
       premiumUser: post.userId.isPremium,
+      profileImg: post.userId.profile_imgUrl,
     }));
 
     res.render("user/publicProfile", {
@@ -102,15 +110,8 @@ exports.renderPublicProfilePage = async (req, res, next) => {
   }
 };
 
-exports.renderResetUserNamePage = async (req, res, next) => {
+exports.renderResetUserNamePage = (req, res, next) => {
   try {
-    const userDoc = await User.findById(req.user._id);
-    if (!userDoc) {
-      return res.status(500).render("error/500", {
-        title: "something went wrong",
-        errorMessage: "no user found with this ID",
-      });
-    }
     res.render("user/userName", {
       title: "userName page",
       errorMessage: "",
@@ -206,6 +207,7 @@ exports.premiumDetails = async (req, res, next) => {
     const stripeSession = await stripe.checkout.sessions.retrieve(
       userDoc.payment_session_key
     );
+
     const date = fromUnixTime(stripeSession.created);
     const formattedDate = format(date, " dd-MMM-yyyy ");
     const formattedTime = format(date, "hh:mm:ss a ");
@@ -216,13 +218,59 @@ exports.premiumDetails = async (req, res, next) => {
       postalCode: stripeSession.customer_details.address.postal_code,
       email: stripeSession.customer_details.email,
       name: stripeSession.customer_details.name,
-      phone: stripeSession.customer_details.phone,
+      subscription: stripeSession.subscription,
       invoice_id: stripeSession.invoice,
       payment_status: stripeSession.payment_status,
       status: stripeSession.status,
       date: formattedDate,
       time: formattedTime,
     });
+  } catch (error) {
+    console.error(error);
+    const err = new Error("Something wrong,report to admin.");
+    next(err);
+  }
+};
+
+exports.renderProfileImgUploadPage = (req, res, next) => {
+  try {
+    res.render("user/profileUpload", {
+      title: "Upload Profile Image",
+      errorMessage: "",
+    });
+  } catch (error) {
+    console.error(error);
+    const err = new Error("Something wrong,report to admin.");
+    next(err);
+  }
+};
+
+exports.uploadProfileImage = async (req, res, next) => {
+  try {
+    const image = req.file;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).render("user/profileUpload", {
+        title: "Upload Profile Image",
+        errorMessage: errors.array()[0].msg,
+      });
+    }
+    if (image === undefined) {
+      return res.status(422).render("user/profileUpload", {
+        title: "Upload Profile Image",
+        errorMessage: "Image extension must be jpg,png and jpeg",
+      });
+    }
+    const userDoc = await User.findById(req.user._id);
+    if (!userDoc) {
+      return res.status(500).render("error/500", {
+        title: "something went wrong",
+        errorMessage: "no user found with this ID",
+      });
+    }
+    userDoc.profile_imgUrl = image.path;
+    userDoc.save();
+    res.redirect("/profile");
   } catch (error) {
     console.error(error);
     const err = new Error("Something wrong,report to admin.");

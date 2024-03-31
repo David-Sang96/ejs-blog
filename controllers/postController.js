@@ -72,7 +72,7 @@ exports.getPostsAndRenderHomePage = async (req, res, next) => {
 
     const posts = await Post.find()
       .select("title description image createdAt")
-      .populate("userId", "userName email isPremium")
+      .populate("userId", "userName email isPremium profile_imgUrl")
       .sort({ createdAt: -1 })
       .skip((currentPage - 1) * postsPerPage)
       .limit(postsPerPage);
@@ -85,6 +85,7 @@ exports.getPostsAndRenderHomePage = async (req, res, next) => {
       userName: post.userId.userName,
       userId: post.userId._id,
       premiumUser: post.userId.isPremium,
+      profileImg: post.userId.profile_imgUrl,
     }));
     res.render("home", {
       title: "Home",
@@ -104,8 +105,7 @@ exports.postDetails = async (req, res, next) => {
   try {
     const { id } = req.params;
     const post = await Post.findById(id).populate("userId", "email isPremium");
-    const isValid =
-      req.session.userInfo?._id.toString() === post.userId._id.toString();
+    const isValid = req.user?._id.toString() === post.userId._id.toString();
     res.render("details", {
       title: "Details",
       post,
@@ -209,10 +209,8 @@ exports.savePost = async (req, res, next) => {
       },
     };
     const postDoc = await Post.findById(id)
-      .populate("userId", "email userName")
+      .populate("userId", "email userName isPremium")
       .lean();
-    if (req.session.userInfo?._id.toString() !== postDoc.userId._id.toString())
-      return res.redirect("/");
     const postDate = format(new Date(postDoc.createdAt), "dd-MMM-yyyy");
     const date = new Date();
     const pdfSavePath = `${expressPath.join(
